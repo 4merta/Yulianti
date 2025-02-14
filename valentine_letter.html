@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f5e6e6;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .scene {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 100vh;
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .envelope {
+            position: absolute;
+            width: 90%;
+            max-width: 300px;
+            height: 200px;
+            background: #ff9999;
+            transform-style: preserve-3d;
+            animation: envelopeMove 4s forwards;
+            z-index: 1;
+        }
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 150px;
+            background: #ff8080;
+            transform-origin: top;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            animation: openFlap 2s forwards 1s;
+        }
+        .letter {
+            position: fixed;
+            width: 85%;
+            max-width: 280px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            opacity: 0;
+            z-index: 2;
+            animation: letterRise 3s forwards 3s;
+            text-align: center;
+        }
+        .flower-1, .flower-3, .flower-2 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            font-size: 80px;
+            opacity: 0;
+            z-index: -1;
+            animation: fadeInRotate 2s forwards 6s;
+        }
+        .flower-1 {
+            left: 10%;
+            bottom: 10%;
+        }
+        .flower-2 {
+            left: 50%;
+            bottom: 5%;
+            transform: translateX(-50%);
+            animation-delay: 6.25s;
+        }
+        .flower-3 {
+            right: 10%;
+            bottom: 10%;
+            animation-delay: 6.5s;
+        }
+        
+        .flower-4, .flower-6, .flower-5 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            font-size: 80px;
+            opacity: 0;
+            z-index: -1;
+            animation: fadeInRotate 2s forwards 6s;
+        }
+        .flower-4 {
+            left: 3%;
+            bottom: 20%;
+        }
+        .flower-5 {
+            left: 49%;
+            bottom: 15%;
+            transform: translateX(-50%);
+            animation-delay: 6.25s;
+        }
+        .flower-6 {
+            right: 7%;
+            bottom: 17%;
+            animation-delay: 6.5s;
+        }
+
+        .flower-7, .flower-9, .flower-8 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            font-size: 80px;
+            opacity: 0;
+            z-index: -1;
+            animation: fadeInRotate 2s forwards 6s;
+        }
+        .flower-7 {
+            left: 15%;
+            bottom: 20%;
+        }
+        .flower-8 {
+            left: 30%;
+            bottom: 15%;
+            transform: translateX(-50%);
+            animation-delay: 6.25s;
+        }
+        .flower-9 {
+            right: 7%;
+            bottom: 7%;
+            animation-delay: 6.5s;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 50px;
+            z-index: 2;
+            opacity: 0;
+            animation: bounceIn 1s forwards 7s;
+        }
+        .heart-top {
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+     
+        @keyframes openFlap {
+            to { transform: rotateX(180deg); }
+        }
+        @keyframes letterRise {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(-20px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes fadeInRotate {
+            0% {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0);
+            }
+            100% {
+                opacity: 0.8;
+                transform: rotate(0) scale(1);
+            }
+        }
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateX(-50%) scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+        @media (max-width: 480px) {
+            .letter {
+                width: 75%;
+                padding: 15px;
+                font-size: 14px;
+            }
+            .flower-1, .flower-3, .flower-2 {
+                width: 70px;
+                height: 70px;
+                font-size: 60px;
+            }
+            .flower-1 {
+                left: 15%;
+                bottom: 15%;
+            }
+            .flower-2 {
+                left: 50%;
+                bottom: 8%;
+            }
+            .flower-3 {
+                right: 15%;
+                bottom: 15%;
+            }
+
+            .flower-4, .flower-6, .flower-5 {
+                width: 70px;
+                height: 70px;
+                font-size: 62px;
+            }
+            .flower-4 {
+                left: 14%;
+                bottom: 16%;
+            }
+            .flower-5 {
+                left: 49%;
+                bottom: 9%%;
+            }
+            .flower-6 {
+                right: 14%;
+                bottom: 16%;
+            }
+            .flower-7, .flower-9, .flower-8 {
+                width: 70px;
+                height: 70px;
+                font-size: 62px;
+            }
+            .flower-7 {
+                left: 14%;
+                bottom: 16%;
+            }
+            .flower-8 {
+                left: 49%;
+                bottom: 9%%;
+            }
+            .flower-9 {
+                right: 14%;
+                bottom: 16%;
+            }
+            .heart {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scene">
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+        </div>
+        <div class="letter">
+            <h2>Pantun Dulu Gak Sih?</h2>
+            <p>Mawar mekar di pagi hari,</p>
+            <p>Harumnya lembut menenangkan jiwa.</p>
+            <p>Persahabatan ini takkan terganti,</p>
+            <p>Seperti coklat yang penuh rasa.</p>
+            <p>Nih coklatnya.....🍫🍫🍫</p>
+        </div>
+        <div class="flower-1">🌹</div>
+        <div class="flower-2">🌹</div>
+        <div class="flower-3">🌹</div>
+        <div class="flower-4">🌹</div>
+        <div class="flower-5">🌹</div>
+        <div class="flower-6">🌹</div>
+        <div class="flower-7">🌹</div>
+        <div class="flower-8">🌹</div>
+        <div class="flower-9">🌹</div>
+        <div class="heart heart-top">❤️</div>
+    </div>
+</body>
+</html>
